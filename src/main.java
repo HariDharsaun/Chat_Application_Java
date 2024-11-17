@@ -9,7 +9,7 @@ public class main {
         dbHandle dbHandle = new dbHandle();
 
         while (flag) {
-            System.out.println("1. Register\n"+"2. Login\n"+"3. Send Message\n"+"4. View Messages\n"+"5. Logout\n"+"6. Exit");
+            System.out.println("1. Register\n"+"2. Login\n"+"3. Send Message\n"+"4. View All Messages\n"+"5.View Recent Message\n"+"6. Logout\n"+"7. Exit");
             int choice = sc.nextInt();
             sc.nextLine();
 
@@ -88,17 +88,26 @@ public class main {
                         System.out.println("Messages for " + loggedIn.username + ":");
                         for (message message : messages) {
                             System.out.println("From: " + message.fromUser + " - " + message.content);
+                            System.out.println(message.date_time);
                         }
                     }
                     break;
-
                 case 5:
+                	if(loggedIn == null)
+                	{
+                		System.out.println("Please login first.");
+                        break;
+                	}
+                	dbHandle.getRecentMessage(loggedIn.username);
+                	break;
+
+                case 6:
                     // Logout
                     loggedIn = null;
                     System.out.println("Log out successfully.");
                     break;
 
-                case 6:
+                case 7:
                     // Exit
                     System.out.println("Exiting.....");
                     flag = false;
